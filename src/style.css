@@ -65,6 +65,7 @@ a:hover {
     width: 50px;
 }
 
+
 #add-new-project {
     color: whitesmoke;
     margin-top: auto;
@@ -83,4 +84,26 @@ a:hover {
     background-color: lightblue;
     border-color: lightblue;
     transition: 0.2s;
+}
+
+/* projects dropdown */
+#projects-container {
+    display: none;
+}
+
+#projects-container.show {
+    display: block;
+}
+
+.project-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.medium-icon {
+    filter: invert(100%);
+    width: 35px;
 }
