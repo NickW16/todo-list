@@ -87,6 +87,7 @@ a:hover {
 }
 
 /* projects dropdown */
+
 #projects-container {
     display: none;
 }
@@ -101,9 +102,74 @@ a:hover {
     align-items: center;
     gap: 10px;
     transition: 0.2s;
+    overflow: hidden;
 }
 
 .medium-icon {
     filter: invert(100%);
     width: 35px;
+}
+
+input,
+select,
+textarea {
+    border: 1px solid #ccc;
+    box-shadow:none;
+    outline: none;
+    box-sizing: border-box;
+    border-color: #E5E7EB;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    width: 200px;
+}
+
+input:focus {
+    box-shadow: 0 0 8px rgba(5, 5, 5, 0.5);
+    border-color:#2a529d;
+    outline: none;
+}
+
+#project-dialog {
+    position: fixed;
+    top: 50%;
+    left: 15%;
+    align-self: flex-end;
+    justify-content: right;
+    background-color: #dbddef;
+    border-color:#101633;
+    border-width: 10px;
+    border-radius: 10px;
+    padding: 30px;
+    font-size: 80%;
+    width: 350px;
+}
+
+#project-buttons-div {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.form-buttons {
+    font-weight: bolder;
+    padding: 5px 10px 5px 10px;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color:#000000;
+    color: whitesmoke;
+}
+
+.form-buttons:hover {
+    background-color: lightblue;
+    color: black;
+    transition: 0.2s;
+}
+
+#project-label {
+    font-size: 20px;
+    font-weight: bold;
 }

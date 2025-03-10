@@ -21,7 +21,19 @@
 
             </div>
 
+            <dialog id="project-dialog">
+                <form id="project-form" method="post">
+                    <label for="project_name" id="project-label">Project Name:</label>
+                    <input type="text" id="project-name" name="project_name" required>
+                    <div id="project-buttons-div">
+                        <button type="submit" class="form-buttons" id="submit-new-project">Create Project</button>
+                        <button type="button" class="form-buttons" id="cancel-project-add">Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+
             <button id="add-new-project">Add new project</button>
+
         </div>
 
         <div id="main-content">
