@@ -1,13 +1,41 @@
 import folderImage from "./img/folder.png";
+import { openProject } from "./create-todo";
 
 (function createProject () {
 
-    const myProjects = [];
+    const myProjects = [
+        {
+        name: "Project 1", 
+        tasks: [
+            {
+            title: "Task 1",
+            description: "Task 1 Description",
+            dueDate: "2025-04-01",
+            priority: "High",
+            notes: "Some notes for Task 1",
+            checkList: ["item 1", "item 2"]
+            },
+            {
+            title: "Task 2",
+            description: "Task 2 Description",
+            dueDate: "2025-05-01",
+            priority: "Low",
+            notes: "Some notes for Task 2",
+            checkList: ["item 1"]
+            }
+        ]
+    },
+        {
+            name: "Project 2",
+            tasks: []  // No tasks yet
+        }
+    ];
     const projectsContainer = document.getElementById('projects-container');
 
 
     function displayProjects () {
         projectsContainer.textContent = '';
+
         myProjects.forEach((project, index) => {
             const projectDiv = document.createElement('div');
             projectDiv.className = 'project-display';
@@ -19,20 +47,28 @@ import folderImage from "./img/folder.png";
 
             const titleElement = document.createElement('a');
             titleElement.classList.add('project-folder-name');
-            titleElement.innerHTML = project;
+            titleElement.innerHTML = project.name;
+            titleElement.href = "#";
             projectDiv.appendChild(titleElement);
+
+            titleElement.addEventListener('click', (event) => {
+                event.preventDefault();
+                openProject(index, myProjects);
+            });
 
             projectsContainer.appendChild(projectDiv);
         });
     };
 
-    function addProjectToContainer(addProject) {
-        myProjects.push(addProject);
+    function addProjectToContainer(projectName) {
+        if (!projectName.trim()) return; // prevent empty projects
+        
+        myProjects.push({ name: projectName, tasks: [] }); // Store project as an object
+        
         displayProjects();
     }
 
-    addProjectToContainer('Project 1');
-    addProjectToContainer('Project 2');
+    displayProjects();
 
     // project dropdown functionality
     const dashboardLink = document.getElementById("projects");
