@@ -70,7 +70,8 @@ a:hover {
 }
 
 
-#add-new-project {
+#add-new-project,
+.open-add-task {
     color: whitesmoke;
     margin-top: auto;
     align-self: center;
@@ -83,7 +84,8 @@ a:hover {
     background-color: black;
 }
 
-#add-new-project:hover {
+#add-new-project:hover,
+.open-add-task:hover {
     color: black;
     background-color: lightblue;
     border-color: lightblue;
@@ -187,6 +189,14 @@ input:focus {
     height: 100vh;
 }
 
-.add-task-dialog {
-    display: flex;
+.add-task-div {
+    align-self: flex-end;
+    justify-content: right;
+    background-color: #dbddef;
+    border-color:#101633;
+    border-width: 10px;
+    border-radius: 10px;
+    padding: 30px;
+    font-size: 80%;
+    width: 340px;
 }

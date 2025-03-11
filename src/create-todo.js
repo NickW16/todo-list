@@ -35,6 +35,7 @@ export function openProject(index, myProjects) {
     // Add input fields for new tasks
     const addTaskDiv = document.createElement('div');
     addTaskDiv.classList.add('add-task-div');
+    addTaskDiv.style.visibility = "hidden";
 
     const titleInput = document.createElement("input");
     titleInput.type = "text";
@@ -74,6 +75,13 @@ export function openProject(index, myProjects) {
     addTaskButton.textContent = "Add Task";
     addTaskDiv.appendChild(addTaskButton);
 
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    addTaskDiv.appendChild(cancelButton);
+    cancelButton.addEventListener("click", () => {
+        addTaskDiv.style.visibility = "hidden";
+    });
+
     addTaskButton.addEventListener("click", () => {
         if (titleInput.value.trim() && descriptionInput.value.trim()) { // Ensure some data is entered
             const newTask = {
@@ -90,5 +98,21 @@ export function openProject(index, myProjects) {
         }
     });
 
+
     mainContent.appendChild(addTaskDiv);
+
+    // adds button to main content so it opens and closes the "add task" display
+    const openAddTask = document.createElement("button");
+    openAddTask.classList.add('open-add-task');
+    openAddTask.textContent = "Add Task";
+    mainContent.appendChild(openAddTask);
+
+    //toggle visibility of "add task"
+    openAddTask.addEventListener('click', () => {
+        if (addTaskDiv.style.visibility === "hidden") {
+            addTaskDiv.style.visibility = "visible";
+        } else {
+            addTaskDiv.style.visibility = "hidden";
+        }
+    });
 }
