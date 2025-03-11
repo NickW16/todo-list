@@ -2,24 +2,24 @@ export function openProject(index, myProjects) {
     const project = myProjects[index];
     const mainContent = document.getElementById("main-content");
 
-    // Clear previous content before loading the new project
+    // clear previous content before rendering new project
     mainContent.innerHTML = `<h2>${project.name}</h2>
                              <ul id="task-list"></ul>`;
 
     const taskList = document.getElementById("task-list");
 
-    // Clear out any previous tasks and re-render them
+    // clear and re-render
     taskList.innerHTML = '';
 
-    // Render each task in the project
+    // render each task
     project.tasks.forEach((task, i) => {
         const taskItem = document.createElement('li');
-        taskItem.classList.add('task-item'); // Apply CSS class
+        taskItem.classList.add('task-item');
 
-        // Ensure checklist is an array
+        // ensure checklist is an array
         const checklist = Array.isArray(task.checklist) ? task.checklist : [];
 
-        // Render task details
+        // render task details
         taskItem.innerHTML = `
             <strong>Title:</strong> ${task.title}<br>
             <strong>Description:</strong> ${task.description}<br>
@@ -32,24 +32,23 @@ export function openProject(index, myProjects) {
         taskList.appendChild(taskItem);
     });
 
-    // Add input fields for new tasks
-    const addTaskDiv = document.createElement('div');
-    addTaskDiv.classList.add('add-task-div');
-    addTaskDiv.style.visibility = "hidden";
+    // dialog creation
+    const addTaskDialog = document.createElement("dialog");
+    addTaskDialog.classList.add("add-task-dialog");
 
     const titleInput = document.createElement("input");
     titleInput.type = "text";
     titleInput.placeholder = "New Task";
-    addTaskDiv.appendChild(titleInput);
+    addTaskDialog.appendChild(titleInput);
 
     const descriptionInput = document.createElement("input");
     descriptionInput.type = "text";
     descriptionInput.placeholder = "Task Description";
-    addTaskDiv.appendChild(descriptionInput);
+    addTaskDialog.appendChild(descriptionInput);
 
     const dueDateInput = document.createElement("input");
     dueDateInput.type = "date";
-    addTaskDiv.appendChild(dueDateInput);
+    addTaskDialog.appendChild(dueDateInput);
 
     const priorityInput = document.createElement("select");
     const priorityOptions = ["Low", "Medium", "High"];
@@ -59,60 +58,60 @@ export function openProject(index, myProjects) {
         optionElement.textContent = option;
         priorityInput.appendChild(optionElement);
     });
-    addTaskDiv.appendChild(priorityInput);
+    addTaskDialog.appendChild(priorityInput);
 
     const notesInput = document.createElement("input");
     notesInput.type = "text";
     notesInput.placeholder = "Notes";
-    addTaskDiv.appendChild(notesInput);
+    addTaskDialog.appendChild(notesInput);
 
     const checklistInput = document.createElement("input");
     checklistInput.type = "text";
     checklistInput.placeholder = "Checklist Items (comma separated)";
-    addTaskDiv.appendChild(checklistInput);
+    addTaskDialog.appendChild(checklistInput);
 
     const addTaskButton = document.createElement("button");
     addTaskButton.textContent = "Add Task";
-    addTaskDiv.appendChild(addTaskButton);
+    addTaskDialog.appendChild(addTaskButton);
 
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
-    addTaskDiv.appendChild(cancelButton);
-    cancelButton.addEventListener("click", () => {
-        addTaskDiv.style.visibility = "hidden";
-    });
+    addTaskDialog.appendChild(cancelButton);
 
+    // append to main content
+    mainContent.appendChild(addTaskDialog);
+
+    // event listener to add tasks
     addTaskButton.addEventListener("click", () => {
-        if (titleInput.value.trim() && descriptionInput.value.trim()) { // Ensure some data is entered
+        if (titleInput.value.trim() && descriptionInput.value.trim()) { 
             const newTask = {
                 title: titleInput.value.trim(),
                 description: descriptionInput.value.trim(),
                 dueDate: dueDateInput.value,
                 priority: priorityInput.value,
                 notes: notesInput.value.trim(),
-                checklist: checklistInput.value.trim().split(',').map(item => item.trim()) // Ensure the checklist is always an array
+                checklist: checklistInput.value.trim().split(',').map(item => item.trim()) 
             };
 
-            project.tasks.push(newTask); // Add the new task to the project
-            openProject(index, myProjects); // Refresh the project view with the new task
+            project.tasks.push(newTask); // add new task to project
+            addTaskDialog.close(); // close dialog screen
+            openProject(index, myProjects); // refresh the project view with the new task added
         }
     });
 
+    //close dialog on cancel
+    cancelButton.addEventListener("click", () => {
+        addTaskDialog.close();
+    });
 
-    mainContent.appendChild(addTaskDiv);
-
-    // adds button to main content so it opens and closes the "add task" display
+    // add button to open the task dialog
     const openAddTask = document.createElement("button");
     openAddTask.classList.add('open-add-task');
     openAddTask.textContent = "Add Task";
     mainContent.appendChild(openAddTask);
 
-    //toggle visibility of "add task"
-    openAddTask.addEventListener('click', () => {
-        if (addTaskDiv.style.visibility === "hidden") {
-            addTaskDiv.style.visibility = "visible";
-        } else {
-            addTaskDiv.style.visibility = "hidden";
-        }
+    // open dialog when button is clicked
+    openAddTask.addEventListener("click", () => {
+        addTaskDialog.showModal(); // opens modal
     });
 }

@@ -37,6 +37,20 @@
         </div>
 
     <div id="main-content">
+        <dialog id="add-task-dialog" class="add-task-dialog">
+            <input type="text" id="task-title" placeholder="New Task">
+            <input type="text" id="task-desc" placeholder="Task Description">
+            <input type="date" id="task-due">
+            <select id="task-priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <input type="text" id="task-notes" placeholder="Notes">
+            <input type="text" id="task-checklist" placeholder="Checklist Items (comma separated)">
+            <button id="add-task-btn">Add Task</button>
+            <button id="cancel-task-btn">Cancel</button>
+        </dialog>
 
     </div>
     </div>

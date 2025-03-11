@@ -139,10 +139,8 @@ input:focus {
 }
 
 #project-dialog {
-    position: fixed;
-    top: 50%;
-    left: 15%;
-    align-self: flex-end;
+    justify-self: center;
+    align-self: center;
     justify-content: right;
     background-color: #dbddef;
     border-color:#101633;
@@ -189,8 +187,9 @@ input:focus {
     height: 100vh;
 }
 
-.add-task-div {
-    align-self: flex-end;
+.add-task-dialog {
+    justify-self: center;
+    align-self: center;
     justify-content: right;
     background-color: #dbddef;
     border-color:#101633;
@@ -198,5 +197,7 @@ input:focus {
     border-radius: 10px;
     padding: 30px;
     font-size: 80%;
-    width: 340px;
+    width: 350px;
 }
+
+
