@@ -200,4 +200,23 @@ input:focus {
     width: 350px;
 }
 
+/* task header handling */
+
+#task-page-project-title {
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+    border-bottom: 2px solid whitesmoke;
+}
+
+.task-header {
+    display: flex;
+    justify-content: center;
+}
+
+.task-item { /* task contents */
+    display: flex;
+    justify-content: center;
+}
+
 

@@ -3,8 +3,8 @@ export function openProject(index, myProjects) {
     const mainContent = document.getElementById("main-content");
 
     // clear previous content before rendering new project
-    mainContent.innerHTML = `<h2>${project.name}</h2>
-                             <ul id="task-list"></ul>`;
+    mainContent.innerHTML = `<h1 id ="task-page-project-title">${project.name}</h1>
+                             <div id="task-list"></div>`;
 
     const taskList = document.getElementById("task-list");
 
@@ -13,23 +13,77 @@ export function openProject(index, myProjects) {
 
     // render each task
     project.tasks.forEach((task, i) => {
-        const taskItem = document.createElement('li');
+        // task header with a dropdown, dropdown is lower in the code
+        const taskHeader = document.createElement('div');
+        taskHeader.classList.add('task-header');
+        taskHeader.innerHTML = `<h2>${task.title}</h2>`;
+
+        const taskHeaderToggle = document.createElement('button');
+        taskHeaderToggle.classList.add('task-header-toggle');
+        taskHeaderToggle.textContent = '▼ Show';
+        taskHeader.appendChild(taskHeaderToggle);
+        
+
+        // below goes the task display
+        const taskItem = document.createElement('div');
         taskItem.classList.add('task-item');
+        taskItem.style.visibility = 'hidden';
 
-        // ensure checklist is an array
-        const checklist = Array.isArray(task.checklist) ? task.checklist : [];
+        const taskTitle = document.createElement('div');
+        taskTitle.textContent = `Title: ${task.title}`;
+        taskItem.appendChild(taskTitle);
 
-        // render task details
-        taskItem.innerHTML = `
-            <strong>Title:</strong> ${task.title}<br>
-            <strong>Description:</strong> ${task.description}<br>
-            <strong>Due Date:</strong> ${task.dueDate}<br>
-            <strong>Priority:</strong> ${task.priority}<br>
-            <strong>Notes:</strong> ${task.notes}<br>
-            <strong>Checklist:</strong> ${checklist.join(', ')}
-        `;
+        const taskDescription = document.createElement('div');
+        taskDescription.textContent = `Description: ${task.description}`;
+        taskItem.appendChild(taskDescription);
 
-        taskList.appendChild(taskItem);
+        const taskDueDate = document.createElement('div');
+        taskDueDate.textContent = `Due Date: ${task.dueDate}`;
+        taskItem.appendChild(taskDueDate);
+
+        const taskPriority = document.createElement('div');
+        taskPriority.textContent = `Priority: ${task.priority}`;
+        taskItem.appendChild(taskPriority);
+
+        const taskNotes = document.createElement('div');
+        taskNotes.textContent = `Notes: ${task.notes}`;
+        taskItem.appendChild(taskNotes);
+
+        // button for deleting each task
+        const deleteTaskButton = document.createElement('button');
+        deleteTaskButton.textContent = 'Delete Task';
+        deleteTaskButton.addEventListener('click', () => {
+            const isConfirmed = confirm(`Are you sure you want to delete ${task.title}?`);
+            if (isConfirmed) {    
+                project.tasks.splice(i, 1); // remove from array
+                openProject(index, myProjects); // Re-render without the deleted task
+            }
+        });
+
+        taskItem.appendChild(deleteTaskButton); // append to task div
+
+        // this is the dropdown code !!!
+        taskItem.style.maxHeight = "0";
+        taskItem.style.overflow = "hidden";
+        taskItem.style.transition = "max-height 0.3s ease-out";
+        
+        // dropdown toggle
+        taskHeaderToggle.addEventListener('click', () => {
+            if (taskItem.style.maxHeight === "0px") {
+                taskItem.style.maxHeight = taskItem.scrollHeight + "px";
+                taskHeaderToggle.textContent = '▲ Hide';
+                taskItem.style.visibility = 'visible';
+            } else {
+                taskItem.style.maxHeight = "0px";
+                taskHeaderToggle.textContent = '▼ Show';
+                taskItem.style.visibility = 'hidden';
+            }
+        });
+
+        // weird, but it works
+        taskList.appendChild(taskHeader); // appends to main container
+        taskList.appendChild(taskItem); // appends to header
+
     });
 
     // dialog creation
