@@ -1,5 +1,4 @@
 import "./style.css";
-import createProject from "./create-project.js";
-import createTodo from "./create-todo.js";
-
+import createProject from "./create-project";
+import { openProject } from "./create-todo";
 
