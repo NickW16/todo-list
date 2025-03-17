@@ -72,8 +72,50 @@ import { openProject } from "./create-todo";
     const dashboardLink = document.getElementById("projects");
 
     dashboardLink.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default anchor behavior
+        event.preventDefault(); // prevent default anchor behavior
         projectsContainer.classList.toggle('show'); // Toggle the 'show' class
+    });
+
+    // delete project functionality
+    const deleteProjectButton = document.getElementById('delete-project');
+    const deleteDialog = document.getElementById('delete-project-dialog');
+    const projectSelect = document.getElementById('project-select');
+    const deleteForm = document.getElementById('delete-project-form');
+    const cancelDelete = document.getElementById('cancel-delete');
+    
+    // show delete dialog
+    deleteProjectButton.addEventListener('click', () => {
+        populateProjectSelect();
+        deleteDialog.showModal();
+    });
+    
+    // populate dropdown with project names
+    function populateProjectSelect() {
+        projectSelect.innerHTML = ''; // clear existing options
+        myProjects.forEach((project, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = project.name;
+            projectSelect.appendChild(option);
+        });
+    }
+    
+    // form submission
+    deleteForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const selectedIndex = projectSelect.value;
+    
+        const isConfirmed = confirm(`Are you sure you want to delete "${myProjects[selectedIndex].name}"?`);
+        if (isConfirmed) {
+            myProjects.splice(selectedIndex, 1); // remove project from array
+            displayProjects(); // update UI
+            deleteDialog.close();
+        }
+    });
+    
+    // cancel delete action
+    cancelDelete.addEventListener('click', () => {
+        deleteDialog.close();
     });
 
     // add new project functionality

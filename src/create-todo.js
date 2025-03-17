@@ -10,7 +10,8 @@ export function openProject(index, myProjects) {
 
     // clear previous content before rendering new project
     mainContent.innerHTML = `<h1 id ="task-page-project-title">${project.name}</h1>
-                             <div id="task-list"></div>`;
+                             <div id="task-list"></div>`; // project title and header
+
 
     const taskList = document.getElementById("task-list");
 
