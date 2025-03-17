@@ -220,9 +220,10 @@ input:focus {
 }
 
 .add-task-dialog {
+    /* center on screen */
+    align-items: center;
     justify-self: center;
     align-self: center;
-    justify-content: right;
     background-color: #dbddef;
     border-color:#101633;
     border-width: 10px;
@@ -231,6 +232,8 @@ input:focus {
     font-size: 80%;
     width: 350px;
 }
+
+
 
 /* task header handling */
 
@@ -277,6 +280,17 @@ input:focus {
     max-width: 80%;
 }
 
+#task-title,
+#task-priority,
+#task-due-date {
+    font-size: 23px;
+}
+
+.task-input {
+    width: 300px;
+}
+
+
 .task-content,
 .task-content-large { /* each task item */
     font-size: 18px;
@@ -295,6 +309,12 @@ input:focus {
     align-self: center;
     padding: 10px;
     gap: 20px;
+}
+
+#task-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .button-task-options {

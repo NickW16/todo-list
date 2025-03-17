@@ -39,16 +39,19 @@ export function openProject(index, myProjects) {
         const taskTitle = document.createElement('div');
         taskTitle.textContent = `Title: ${task.title}`;
         taskTitle.classList.add('task-content');
+        taskTitle.id = 'task-title';
         taskItem.appendChild(taskTitle);
 
         const taskPriority = document.createElement('div');
         taskPriority.textContent = `Priority: ${task.priority}`;
         taskPriority.classList.add('task-content');
+        taskPriority.id = 'task-priority';
         taskItem.appendChild(taskPriority);
 
         const taskDueDate = document.createElement('div');
         taskDueDate.textContent = `Due Date: ${task.dueDate}`;
         taskDueDate.classList.add('task-content');
+        taskDueDate.id = 'task-due-date';
         taskItem.appendChild(taskDueDate);
 
         const taskDescription = document.createElement('div');
@@ -119,21 +122,28 @@ export function openProject(index, myProjects) {
         const addTaskDialog = document.createElement("dialog");
         addTaskDialog.classList.add("add-task-dialog");
 
+
         const titleInput = document.createElement("input");
+        titleInput.classList.add('task-input');
         titleInput.type = "text";
+        titleInput.maxLength = 25;
         titleInput.placeholder = "New Task";
         addTaskDialog.appendChild(titleInput);
 
         const descriptionInput = document.createElement("input");
+        descriptionInput.classList.add('task-input');
+        descriptionInput.maxLength = 40;
         descriptionInput.type = "text";
         descriptionInput.placeholder = "Task Description";
         addTaskDialog.appendChild(descriptionInput);
 
         const dueDateInput = document.createElement("input");
+        dueDateInput.classList.add('task-input');
         dueDateInput.type = "date";
         addTaskDialog.appendChild(dueDateInput);
 
         const priorityInput = document.createElement("select");
+        priorityInput.classList.add('task-input');
         const priorityOptions = ["Low", "Medium", "High"];
         priorityOptions.forEach(option => {
             const optionElement = document.createElement("option");
@@ -143,18 +153,32 @@ export function openProject(index, myProjects) {
         });
         addTaskDialog.appendChild(priorityInput);
 
-        const notesInput = document.createElement("input");
-        notesInput.type = "text";
+        const notesInput = document.createElement("textarea");
         notesInput.placeholder = "Notes";
+        notesInput.rows = 5; //styling for better UX
+        notesInput.maxLength = 300;
+        notesInput.style.overflow = 'auto';
+        notesInput.style.resize = 'both';
+        notesInput.style.width = '300px';
+        notesInput.style.maxWidth = '350px';
+        notesInput.style.maxHeight = '400px';
         addTaskDialog.appendChild(notesInput);
 
+        // buttons
+        const buttonDiv = document.createElement('div');
+        buttonDiv.id = 'task-button-container';
+
         const addTaskButton = document.createElement("button");
+        addTaskButton.classList.add('form-buttons');
         addTaskButton.textContent = "Add Task";
-        addTaskDialog.appendChild(addTaskButton);
+        buttonDiv.appendChild(addTaskButton);
 
         const cancelButton = document.createElement("button");
+        cancelButton.classList.add('form-buttons');
         cancelButton.textContent = "Cancel";
-        addTaskDialog.appendChild(cancelButton);
+        buttonDiv.appendChild(cancelButton);
+
+        addTaskDialog.appendChild(buttonDiv); //append to dialog
 
         // append to main content
         mainContent.appendChild(addTaskDialog);
