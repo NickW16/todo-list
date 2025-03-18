@@ -1,3 +1,38 @@
+:root {
+    --main-color: black;
+    --secondary-color: whitesmoke;
+    --tertiary-color: lightblue;
+    --fourth-color: #101633;
+}
+
+body.light-theme {
+    --main-color: rgb(197, 190, 190);
+    --secondary-color: black;
+    --tertiary-color: rgb(114, 20, 20);
+    --fourth-color: #101633;
+}
+
+body.blue-theme {
+    --main-color: #e0f7fa;
+    --secondary-color: #01579b;
+    --tertiary-color: rgb(114, 20, 20);
+    --fourth-color:#101633;
+}
+
+body.pink-theme {
+    --main-color: #ffe4ec;
+    --secondary-color: #b0005a;
+    --tertiary-color: #8e004a;
+    --fourth-color: #ff99c8;
+}
+
+body.red-theme {
+    --main-color: #ffeaea;
+    --secondary-color: #a00000;
+    --tertiary-color: #6b0000;
+    --fourth-color: #ff4d4d;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,19 +40,19 @@
 }
 
 body {
-    background-color: black;
-    color: aliceblue;
+    background-color: var(--main-color);
+    color: var(--secondary-color);
     width: 100%;
     height: 100vh;
 }
 
 a {
     text-decoration: none;
-    color: whitesmoke;
+    color: var(--secondary-color);
 }
 
 a:hover {
-    color: lightblue;
+    color: var(--tertiary-color);
     transition: 0.2s;
 }
 
@@ -29,7 +64,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     font-weight: bold;
-    border-right: 5px solid whitesmoke;
+    border-right: 5px solid var(--secondary-color);
     width: 15%;
     height: 100vh;
     padding: 0px 10px 0px 10px;
@@ -42,7 +77,7 @@ a:hover {
     gap: 10px;
     font-size: 22px;
     padding: 10px;
-    border-bottom: 2px solid whitesmoke;
+    border-bottom: 2px solid var(--secondary-color);
 }
 
 
@@ -60,20 +95,41 @@ a:hover {
 }
 
 #dashboard-icon {
-    filter: invert(100%);
+    transition: filter 0.3s;
     width: 100px;
 }
 
 .icon {
-    filter: invert(100%);
+    transition: filter 0,3s;
     width: 50px;
+}
+
+.medium-icon {
+    transition: filter 0,3s;
+    width: 35px;
+}
+
+
+body.dark-theme 
+#dashboard-icon {
+    filter:invert(100%);
+}
+
+body.dark-theme 
+.icon {
+    filter: invert(100%);
+}
+
+body.dark-theme 
+.medium-icon {
+    filter:invert(100%);
 }
 
 
 #add-new-project,
 #delete-project,
 .open-add-task {
-    color: whitesmoke;
+    color: var(--secondary-color);
     margin-top: auto;
     align-self: center;
     margin-bottom: 15px;
@@ -81,16 +137,16 @@ a:hover {
     font-size: 16px;
     font-weight: bold;
     border-radius: 6px;
-    border: 5px solid whitesmoke;
-    background-color: black;
+    border: 5px solid var(--secondary-color);
+    background-color: var(--main-color);
 }
 
 #add-new-project:hover,
 #delete-project:hover,
 .open-add-task:hover {
-    color: black;
-    background-color: lightblue;
-    border-color: lightblue;
+    color: var(--main-color);
+    background-color: var(--tertiary-color);
+    border-color: var(--tertiary-color);
     transition: 0.2s;
 }
 
@@ -127,19 +183,15 @@ a:hover {
     overflow: hidden;
 }
 
-.medium-icon {
-    filter: invert(100%);
-    width: 35px;
-}
 
 input,
 select,
 textarea {
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondary-color);
     box-shadow:none;
     outline: none;
     box-sizing: border-box;
-    border-color: #E5E7EB;
+    border-color: var(--secondary-color);
     border-radius: 5px;
     padding: 5px;
     margin: 10px;
@@ -159,8 +211,8 @@ input:focus {
     justify-self: center;
     align-self: center;
     justify-content: right;
-    background-color: #dbddef;
-    border-color:#101633;
+    background-color: var(--secondary-color);
+    border-color:var(--fourth-color);
     border-width: 10px;
     border-radius: 10px;
     padding: 30px;
@@ -180,8 +232,8 @@ input:focus {
     border-style: solid;
     border-radius: 10px;
     border-width: 1px;
-    background-color:#000000;
-    color: whitesmoke;
+    background-color:var(--main-color);
+    color: var(--secondary-color);
 }
 
 #delete-project-form {
@@ -191,8 +243,8 @@ input:focus {
 }
 
 .form-buttons:hover {
-    background-color: lightblue;
-    color: black;
+    background-color: var(--tertiary-color);
+    color: var(--main-color);
     transition: 0.2s;
 }
 
@@ -224,8 +276,8 @@ input:focus {
     align-items: center;
     justify-self: center;
     align-self: center;
-    background-color: #dbddef;
-    border-color:#101633;
+    background-color: var(--secondary-color);
+    border-color:var(--fourth-color);
     border-width: 10px;
     border-radius: 10px;
     padding: 30px;
@@ -248,24 +300,24 @@ input:focus {
 #task-page-project-title {
     display: flex;
     justify-content: center;
-    color: #ffffff;
-    border-bottom: 2px solid whitesmoke;
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
 }
 
 .task-header {
     display: flex;
     justify-self: center;
     justify-content: space-around;
-    border: 2px solid whitesmoke;
+    border: 2px solid var(--secondary-color);
     border-radius: 6px;
     width: 320px;
 }
 
 
 .task-header-toggle {
-    color: whitesmoke;
-    background-color: #000000;
-    border: 2px solid whitesmoke;
+    color: var(--secondary-color);
+    background-color: var(--main-color);
+    border: 2px solid var(--secondary-color);
     border-radius: 6px;
     width: 100px;
 }
@@ -276,7 +328,7 @@ input:focus {
     grid-auto-rows: minmax(50px, auto); /* Ensures rows expand as needed */
     gap: 20px;
     padding: 0px 25px 0px 25px;
-    border: 2px solid #E5E7EB;
+    border: 2px solid var(--secondary-color);
     max-width: 80%;
 }
 
@@ -318,7 +370,7 @@ input:focus {
 }
 
 .button-task-options {
-    color: whitesmoke;
+    color: var(--secondary-color);
     margin-top: auto;
     align-self: center;
     margin-bottom: 15px;
@@ -326,14 +378,14 @@ input:focus {
     font-size: 16px;
     font-weight: bold;
     border-radius: 6px;
-    border: 5px solid whitesmoke;
-    background-color: black;
+    border: 5px solid var(--secondary-color);
+    background-color: var(--main-color);
 }
 
 .button-task-options:hover {
-    color: black;
-    background-color: lightblue;
-    border-color: lightblue;
+    color: var(--main-color);
+    background-color: var(--tertiary-color);
+    border-color: var(--tertiary-color);
     transition: 0.2s;
 }
 
