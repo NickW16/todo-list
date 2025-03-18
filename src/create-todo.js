@@ -1,12 +1,6 @@
 export function openProject(index, myProjects) {
     const project = myProjects[index];
     const mainContent = document.getElementById("main-content");
-    
-    // resets main content screen if one clicks 'dashboard'
-    const dashboardClear = document.getElementById('dashboard');
-    dashboardClear.addEventListener('click', () => {
-        mainContent.textContent = '';
-    });
 
     // clear previous content before rendering new project
     mainContent.innerHTML = `<h1 id ="task-page-project-title">${project.name}</h1>
