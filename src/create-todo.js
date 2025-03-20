@@ -71,6 +71,7 @@ export function openProject(index, myProjects) {
             const isConfirmed = confirm(`Are you sure you want to delete ${task.title}?`);
             if (isConfirmed) {    
                 project.tasks.splice(i, 1); // remove from array
+                window.saveProjectsToLocalStorage(); // save to local storage
                 openProject(index, myProjects); // Re-render without the deleted task
             }
         });
@@ -197,6 +198,10 @@ export function openProject(index, myProjects) {
                 addTaskDialog.close(); // close dialog screen
                 openProject(index, myProjects); // refresh the project view with the new task added
             }  
+            
+            window.saveProjectsToLocalStorage(); // save to local storage
+            addTaskDialog.close();
+            openProject(index, myProjects); //refresh UI
         });
 
         //close dialog on cancel

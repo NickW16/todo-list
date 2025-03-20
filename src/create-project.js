@@ -2,32 +2,49 @@ import folderImage from "./img/folder.png";
 import { openProject } from "./create-todo";
 
 (function createProject () {
-
-    const myProjects = [
-        {
-        name: "Project 1", 
-        tasks: [
-            {
-            title: "Task 1",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
-            dueDate: "2025-04-01",
-            priority: "High",
-            notes: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-            },
-            {
-            title: "Task 2",
-            description: "Task 2 Description",
-            dueDate: "2025-05-01",
-            priority: "Low",
-            notes: "Some notes for Task 2",
-            }
-        ]
-    },
-        {
-            name: "Project 2",
-            tasks: []  // No tasks yet
+    // this loads projects from the local storage!!
+    function loadProjectsFromLocalStorage() {
+        const storedProjects = localStorage.getItem('myProjects');
+        if (storedProjects) {
+            return JSON.parse(storedProjects);
         }
-    ];
+        return null;
+    }
+
+    let myProjects = loadProjectsFromLocalStorage();
+    if (!myProjects) {
+        myProjects = [
+            {
+            name: "Project 1", 
+            tasks: [
+                {
+                title: "Task 1",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+                dueDate: "2025-04-01",
+                priority: "High",
+                notes: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+                },
+                {
+                title: "Task 2",
+                description: "Task 2 Description",
+                dueDate: "2025-05-01",
+                priority: "Low",
+                notes: "Some notes for Task 2",
+                }
+            ]
+        },
+            {
+                name: "Project 2",
+                tasks: []  // No tasks yet
+            }
+        ];
+    }
+
+    //save to local storage
+    function saveProjectsToLocalStorage() {
+        localStorage.setItem('myProjects', JSON.stringify(myProjects));
+    }
+
     const projectsContainer = document.getElementById('projects-container');
 
 
@@ -63,6 +80,7 @@ import { openProject } from "./create-todo";
         
         myProjects.push({ name: projectName, tasks: [] }); // Store project as an object
         
+        saveProjectsToLocalStorage(); //save to local storage
         displayProjects();
     }
 
@@ -108,6 +126,7 @@ import { openProject } from "./create-todo";
         const isConfirmed = confirm(`Are you sure you want to delete "${myProjects[selectedIndex].name}"?`);
         if (isConfirmed) {
             myProjects.splice(selectedIndex, 1); // remove project from array
+            saveProjectsToLocalStorage(); // save after deletion
             displayProjects(); // update UI
             deleteDialog.close();
         }
@@ -147,4 +166,8 @@ import { openProject } from "./create-todo";
         dialog.close();
         projectForm.reset();
     });
+
+    // this exports the local storage so its available globally
+    window.saveProjectsToLocalStorage = saveProjectsToLocalStorage;
+    window.getMyProjects = () => myProjects;
 })();
